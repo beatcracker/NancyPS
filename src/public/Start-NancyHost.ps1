@@ -69,8 +69,8 @@ function Start-NancyHost {
 
         # Open it in the browser to prove it works
         if (!$Quiet) {
-            Start-Process ${script:Nancy Uri}
+            Write-Host "Nancy running on ${script:Nancy Uri}, call Stop-NancyHost to stop it"
+            Start-Process -FilePath ${script:Nancy Uri}
         }
-        Write-Host "Nancy running on ${script:Nancy Uri}, call Stop-NancyHost to stop it"
     }
 }
