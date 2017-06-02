@@ -238,6 +238,12 @@ function build {
         }
     }
 
+    ## Update RequiredAssemblies:
+    if ($RequiredAssemblies = Get-ChildItem -Path $LibPath -Filter '*.dll' | % {Join-Path $_.Directory.Name $_.Name}) {
+        Trace-Message "       Update RequiredAssemblies"
+        Update-Manifest $ReleaseManifest -PropertyName RequiredAssemblies -Value $RequiredAssemblies
+    }
+
     ## Update the PSD1 Version:
     Trace-Message "       Update Module Version"
     Update-Metadata -Path $ReleaseManifest -PropertyName 'ModuleVersion' -Value $Version
