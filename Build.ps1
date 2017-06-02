@@ -136,7 +136,7 @@ function update {
     Trace-Message "UPDATE $ModuleName in $Path"
 
     if(Test-Path (Join-Path $Path packages.config)) {
-        if(!($Name = Get-PackageSource | ? Location -eq 'https://www.nuget.org/api/v2' | % Name)) {
+        if(!($Name = Get-PackageSource | Where-Object {$_.Location.Trim('/') -eq 'https://www.nuget.org/api/v2'} | % Name)) {
             Write-Warning "Adding NuGet package source"
             $Name = Register-PackageSource NuGet -Location 'https://www.nuget.org/api/v2' -ForceBootstrap -ProviderName NuGet | % Name
         }
