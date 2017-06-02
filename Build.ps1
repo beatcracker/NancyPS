@@ -212,9 +212,11 @@ function build {
         Trace-Message "       Setting content for $ReleaseModule"
 
         $FunctionsToExport = Join-Path $SourcePath Public\*.ps1 -Resolve | % { [System.IO.Path]::GetFileNameWithoutExtension($_) }
-        Set-Content $ReleaseModule ((
-            (Get-Content (Join-Path $SourcePath Private\*.ps1) -Raw) + 
-            (Get-Content (Join-Path $SourcePath Public\*.ps1) -Raw)) -join "`r`n`r`n`r`n") -Encoding UTF8
+        ('Private', 'Public' | Get-ChildItem -Filter '*.ps1' -Path {
+            Join-Path $SourcePath $_
+        } | Get-Content -Raw | ForEach-Object {
+            $_.Trim()
+        }) -join "`r`n"*3 | Set-Content $ReleaseModule -Encoding UTF8
 
         # If there are any folders that aren't Public, Private, Tests, or Specs ...
         $OtherFolders = Get-ChildItem $SourcePath -Directory -Exclude Public, Private, Tests, Specs
