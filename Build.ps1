@@ -82,7 +82,7 @@ function init {
         }
 
         # The release path is where the final module goes
-            $Script:ReleasePath = Join-Path $Path $Version
+            $Script:ReleasePath = Join-Path $Path "v$Version"
             $Script:ReleaseManifest = Join-Path $ReleasePath "${ModuleName}.psd1"
 
 }
