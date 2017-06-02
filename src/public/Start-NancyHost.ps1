@@ -71,6 +71,6 @@ function Start-NancyHost {
         if (!$Quiet) {
             Start-Process ${script:Nancy Uri}
         }
-        Write-Host "Nancy running on ${script:Nancy Uri}, call Stop-Nancy to stop it"
+        Write-Host "Nancy running on ${script:Nancy Uri}, call Stop-NancyHost to stop it"
     }
 }
