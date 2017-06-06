@@ -148,7 +148,7 @@ function update {
         $null = mkdir $Path\packages\ -Force
 
         # Remember, as of now, only nuget actually supports the -Destination flag
-        foreach($Package in ([xml](gc .\packages.config)).packages.package) {
+        foreach($Package in ([xml](gc "$Path\packages.config")).packages.package) {
             Trace-Message "Installing $($Package.id) v$($Package.version) from $($Package.Source)"
             $install = Install-Package -Name $Package.id -RequiredVersion $Package.version -Source $Package.Source -Destination $Path\packages -Force:$Force -ErrorVariable failure
             if($failure) {
